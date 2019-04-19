@@ -66,7 +66,7 @@
 				<div class="col-lg-6 contact-info">
 					<h3>Get in touch</h3>
 					<p>Main Str, no 23, New York</p>
-					<p>+546 990221 123</p>
+					<p>+972 983 9884</p>
 					<p>hosting@contact.com</p>
 					<div class="contact-social">
 						<a href="#"><i class="fa fa-pinterest"></i></a>
