@@ -58,55 +58,57 @@
 								<?php
 									require_once 'core/init.php';
 									if(Input::exists()){
-										echo "<div class=\"messages\"><h5>";
-										$validate = new Validate();
-										$validation = $validate->check($_POST, array(
-											'first-name' => array (
-												'name' => 'First Name',
-												'required' => true,
-												'min' => 2
-											),
-											'last-name' => array (
-												'name' => 'Last Name',
-												'required' => true,
-												'min' => 2
-											),
-											'username' => array (
-												'name' => 'Username',
-												'required' => true,
-												'min' => 8,
-												'max' => 20,
-												'unique' => 'users'
-											),
-											'email' => array (
-												'name' => 'Email',
-												'required' => true,
-												'unique' => 'users'
-											),
-											'password' => array (
-												'name' => 'Password',
-												'required' => true,
-												'min' => 8
-											),
-											'confirm-password' => array (
-												'name' => 'Confirmed Password',
-												'required' => true,
-												'matches' => 'password',
-												'min' => 8
+										if(Token::check(Input::get('token'))){
+											echo "<div class=\"messages\"><h5>";
+											$validate = new Validate();
+											$validation = $validate->check($_POST, array(
+												'first-name' => array (
+													'name' => 'First Name',
+													'required' => true,
+													'min' => 2
+												),
+												'last-name' => array (
+													'name' => 'Last Name',
+													'required' => true,
+													'min' => 2
+												),
+												'username' => array (
+													'name' => 'Username',
+													'required' => true,
+													'min' => 8,
+													'max' => 20,
+													'unique' => 'users'
+												),
+												'email' => array (
+													'name' => 'Email',
+													'required' => true,
+													'unique' => 'users'
+												),
+												'password' => array (
+													'name' => 'Password',
+													'required' => true,
+													'min' => 8
+												),
+												'confirm-password' => array (
+													'name' => 'Confirmed Password',
+													'required' => true,
+													'matches' => 'password',
+													'min' => 8
 
-											)
-										));
-										if($validation->passed()){
-											//TODO: Register the user
-											echo "Your account has been made! Check your email for a confirmation link from us. <a href='login.php' style='color: black;'>Login</a>";
-										} else {
-											echo "<h5>The following errors have occurred:</h5><ul>";
-											foreach($validation->errors() as $error){
-												echo "<li>" . $error. "</li>";
+												)
+											));
+											if($validation->passed()){
+												//TODO: Register the user
+												echo "Your account has been made! Check your email for a confirmation link from us. <a href='login.php' style='color: black;'>Login</a>";
+											} else {
+												echo "<h5>The following errors have occurred:</h5><ul>";
+												foreach($validation->errors() as $error){
+													echo "<li>" . $error. "</li>";
+												}
+												echo "</ul>";
 											}
-											echo "</ul>";
+											echo "</h5></div>";
 										}
-										echo "</h5></div>";
 									}
 								?>
 						<div class="cart-table-warp" style="padding-top: 24px;">
@@ -130,6 +132,7 @@
 						</table>
 						</div>
 						<div class="register-button">
+							<input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
 							<input type="submit" name="register" id="register" value="Register">
 						</div>
 					</div>
