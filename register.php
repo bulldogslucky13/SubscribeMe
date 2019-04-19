@@ -34,11 +34,10 @@
 
 </head>
 <body>
-	<!-- Page Preloder
+	<!-- Page Preloder -->
 	<div id="preloder">
 		<div class="loader"></div>
 	</div>
--->
 
 	<!-- Header section -->
 	<?php
@@ -99,7 +98,10 @@
 											));
 											if($validation->passed()){
 												//TODO: Register the user
-												echo "Your account has been made! Check your email for a confirmation link from us. <a href='login.php' style='color: black;'>Login</a>";
+												Session::flash('success', "Your account has been made! Check your email for a confirmation link from us. <a href='login.php' style='color: black;'>Login</a>");
+												if(Session::exists('success')){
+													echo Session::flash('success');
+												}
 											} else {
 												echo "<h5>The following errors have occurred:</h5><ul>";
 												foreach($validation->errors() as $error){
