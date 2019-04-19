@@ -1,5 +1,5 @@
 <?php
-	require_once 'core/init.php';
+	error_reporting(E_ALL);
 ?>
 <!DOCTYPE html>
 <html lang="zxx">
@@ -34,10 +34,11 @@
 
 </head>
 <body>
-	<!-- Page Preloder -->
+	<!-- Page Preloder
 	<div id="preloder">
 		<div class="loader"></div>
 	</div>
+-->
 
 	<!-- Header section -->
 	<?php
@@ -50,31 +51,86 @@
 	<section class="cart-section spad">
 		<div class="container">
 			<div class="row">
-				<form class="register-form col-lg-10" action="register.php" method="post">
+				<form class="register-form col-lg-10" action="" method="post">
 					<div class="cart-table">
 						<h3>Create an Account</h3>
-						<div class="cart-table-warp">
+
+								<?php
+									require_once 'core/init.php';
+									if(Input::exists()){
+										echo "<div class=\"messages\"><h5>";
+										$validate = new Validate();
+										$validation = $validate->check($_POST, array(
+											'first-name' => array (
+												'name' => 'First Name',
+												'required' => true,
+												'min' => 2
+											),
+											'last-name' => array (
+												'name' => 'Last Name',
+												'required' => true,
+												'min' => 2
+											),
+											'username' => array (
+												'name' => 'Username',
+												'required' => true,
+												'min' => 8,
+												'max' => 20,
+												'unique' => 'users'
+											),
+											'email' => array (
+												'name' => 'Email',
+												'required' => true,
+												'unique' => 'users'
+											),
+											'password' => array (
+												'name' => 'Password',
+												'required' => true,
+												'min' => 8
+											),
+											'confirm-password' => array (
+												'name' => 'Confirmed Password',
+												'required' => true,
+												'matches' => 'password',
+												'min' => 8
+
+											)
+										));
+										if($validation->passed()){
+											//TODO: Register the user
+											echo "Your account has been made! Check your email for a confirmation link from us. <a href='login.php' style='color: black;'>Login</a>";
+										} else {
+											echo "<h5>The following errors have occurred:</h5><ul>";
+											foreach($validation->errors() as $error){
+												echo "<li>" . $error. "</li>";
+											}
+											echo "</ul>";
+										}
+										echo "</h5></div>";
+									}
+								?>
+						<div class="cart-table-warp" style="padding-top: 24px;">
 							<table>
 							<tbody>
 								<tr>
-									<input type="text" name="first-name" class="first-name" placeholder = "First Name">
-									<input type="text" name="last-name" class="last-name" placeholder = "Last Name">
+									<input type="text" name="first-name" class="first-name" id="first-name" placeholder = "First Name" value="<?php echo escape(Input::get('first-name')) ?>">
+									<input type="text" name="last-name" class="last-name" id="last-name" placeholder = "Last Name" value="<?php echo escape(Input::get('last-name')) ?>">
 								</tr>
 								<tr>
-									<input type="text" name="username" placeholder="Username">
+									<input type="text" name="username" id="username" placeholder="Username" value="<?php echo escape(Input::get('username')) ?>">
 								</tr>
 								<tr>
-									<input type="text" name="email" placeholder="Email">
+									<input type="text" name="email" id="email" placeholder="Email" value="<?php echo escape(Input::get('email')) ?>">
 								</tr>
 								<tr>
-									<input type="password" name="password" placeholder = "Password">
-									<input type="password" name="confirm-password" placeholder = "Confirm Password">
+									<input type="password" name="password" id="password" placeholder = "Password" value="<?php echo escape(Input::get('password')) ?>">
+									<input type="password" name="confirm-password" id="confirm-password" placeholder = "Confirm Password" value="<?php echo escape(Input::get('confirm-password')) ?>">
 								</tr>
 							</tbody>
 						</table>
 						</div>
 						<div class="register-button">
-							<input type="submit" name="" value="Register">
+							<input type="submit" name="register" id="register" value="Register">
 						</div>
 					</div>
 				</form>
