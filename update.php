@@ -1,5 +1,9 @@
 <?php
 	require_once 'core/init.php';
+	$user = new User();
+	if (!$user->isLoggedIn()) {
+		Redirect::to('index.php');
+	}
 ?>
 <!DOCTYPE html>
 <html lang="zxx">
@@ -43,11 +47,10 @@
 	<!-- Header section -->
 	<?php
 		include "includes/header.php";
-		$user = new User();
 		if (Input::get('user_id') == null) {
 			$page_user = $user;
 		} else {
-			if (!($user->data()->group == 2)) {//TODO: Update with better permissions system
+			if (!($user->data()->group == 2)) { //TODO: Update with better permissions system
 				Redirect::to('index.php');
 			}
 			$page_user = new User(Input::get('user_id'));
@@ -63,7 +66,41 @@
 				<form class="login-form col-lg-10" action="" method="post">
 					<div class="cart-table">
 						<h3>Update Account</h3>
-						<div class="cart-table-warp">
+						<?php
+							if (Input::exists()) {
+								if (Token::check(Input::get('token'))) {
+									echo "<div class=\"messages\">";
+									$validate = new Validate();
+									$validation = $validate->check($_POST, array(
+										'name' => array (
+											'name' => 'name',
+											'required' => true,
+											'min' => 2,
+											'max' => 50
+										)
+									));
+
+									if ($validation->passed()) {
+										try {
+											$user->update(array(
+												'name' => Input::get('name')
+											));
+											echo "<div class=\"messages\"><h5>Your details have been updated.</h5></div>";
+										} catch (Exception $e) {
+											die($e->getMessage());
+										}
+									} else {
+										echo "<h5>The following errors have occurred:</h5><ul>";
+										foreach($validation->errors() as $error){
+											echo "<li>" . $error. "</li>";
+										}
+										echo "</ul>";
+									}
+									echo "</div>";
+								}
+							}
+						?>
+						<div class="cart-table-warp" style="padding-top: 24px;">
 							<table>
 							<tbody>
 								<tr>

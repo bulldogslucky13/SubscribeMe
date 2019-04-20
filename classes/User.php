@@ -39,6 +39,17 @@ class User {
     return false;
   }
 
+  public function update($fields = array(), $id = null){
+
+    if (!$id && $this->isLoggedIn()) {
+      $id = $this->data()->id;
+    }
+
+    if (!$this->_db->update('users', $id, $fields)) {
+      throw new Exception('There was a problem updating this.');
+    }
+  }
+
   public function login ($username = null, $password = null){
     $user = $this->find($username);
     if($user){

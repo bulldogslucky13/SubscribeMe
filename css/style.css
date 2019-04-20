@@ -2011,7 +2011,7 @@ ol {
 .login-form .messages {
 	width: 100%;
 	background-color: #2fce98;
-	padding: 24px;
+	padding: 16px;
 	border-radius: 12px;
 	border-color: black;
 }
@@ -2133,7 +2133,7 @@ a.login-twitter{
 .register-form .messages {
 	width: 100%;
 	background-color: #2fce98;
-	padding: 24px;
+	padding: 16px;
 	border-radius: 12px;
 	border-color: black;
 }
