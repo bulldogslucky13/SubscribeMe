@@ -43,33 +43,64 @@
 	<!-- Header section -->
 	<?php
 		include "includes/header.php";
+		$user = new User();
+		if (Input::get('user_id') == null) {
+			$page_user = $user;
+		} else {
+			if (!($user->data()->group == 2)) {//TODO: Update with better permissions system
+				Redirect::to('index.php');
+			}
+			$page_user = new User(Input::get('user_id'));
+		}
 	?>
 	<!-- Header section end -->
 
 
-	<!-- login section -->
+	<!-- update section -->
 	<section class="cart-section spad">
 		<div class="container">
 			<div class="row">
 				<form class="login-form col-lg-10" action="" method="post">
 					<div class="cart-table">
-						<h3>Login</h3>
+						<h3>Update Account</h3>
 						<div class="cart-table-warp">
 							<table>
 							<tbody>
 								<tr>
-									<label>Username</label><input type="text" name="username" id="username">
+									<label>Name</label><input type="text" name="name" id="name" value="<?php echo escape($page_user->data()->name); ?>">
 								</tr>
 								<tr>
-									<label>Password</label><input type="password" name="password" id="password">
+									<label>Username</label><input type="text" name="username" id="username" value="<?php echo escape($page_user->data()->username); ?>" disabled="disabled">
+								</tr>
+								<tr>
+									<label>Email</label><input type="text" name="email" id="email" value="<?php echo escape($page_user->data()->email); ?>">
+								</tr>
+									<?php
+										if ($user->data()->group == 2) { //TODO: Update with better permissions system
+									?>
+										<tr>
+											<label>Group:</label>
+											<select class="select" name="group" id="group">
+												<option value="0" >Shopper</option>
+												<option value="1" selected>Client</option>
+												<option value="2">Admin</option>
+											</select>
+										</tr>
+										<?php
+									}
+										?>
+								<tr>
+									<label>New Password</label><input type="password" name="password" id="password">
+								</tr>
+								<tr>
+									<label>Re-type Password</label><input type="password" name="confirm-password" id="confirm-password">
 								</tr>
 							</tbody>
 						</table>
 						</div>
 						<div class="login-button">
-							<input type="submit" value="Login">
+							<input type="submit" value="Update">
 							<input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
-							<h6>Don't have an account? Make one <a href="register.php">here</a>.</h6>
 
 						</div>
 					</div>
@@ -78,7 +109,7 @@
 				<div class="row">
 					<form class="register-form col-lg-10" action="register.php" method="post">
 						<div class="cart-table">
-							<h3>Login with Social Media</h3>
+							<h3>Link Social Media</h3>
 							<div class="cart-table-warp">
 								<div class="social-media-login" style="padding-left: 20%;">
 									<div class="btn"><a href="#" class="login-facebook"><i class="fa fa-facebook"></i> Login via Facebook</a></div>
@@ -90,7 +121,7 @@
 					</div>
 		</div>
 	</section>
-	<!-- login section end -->
+	<!-- update section end -->
 	<!-- Footer section -->
 	<?php
 		include "includes/footer.php";

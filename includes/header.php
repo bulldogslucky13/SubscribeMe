@@ -26,11 +26,11 @@
                     ?>
                   </a>
                     <ul class="sub-menu">
-                      <li><a href="account.php">Your Account</a></li>
+                      <li><a href="update.php">Update Your Account</a></li>
                       <li><a href="orders.php">Your Orders</a></li>
                       <li><a href="payment.php">Payment</a></li>
                       <?php
-                      if($user->data()->group == 1){
+                      if($user->data()->group == 1){ //TODO: Update with better permissions system
                         echo "<li><a href=\"https://admin.subscribme.shop\">Admin Control Panel</a></li>";
                       }
                       ?>
