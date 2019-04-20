@@ -98,7 +98,6 @@
 												)
 											));
 											if($validation->passed()){
-												//TODO: Register the user
 													$user = new User();
 													$salt = Hash::salt(32);
 													echo "<div class=\"messages\"><h5>You have been registered! Check your email for a confirmation from us. <a href='login.php'>Login</a></h5></div>";
