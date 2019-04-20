@@ -13,7 +13,8 @@ class User {
         if ($this->find(intval($user))){
           $this->_isLoggedIn = true;
         } else {
-            //TODO: begin logout
+            $this->_isLoggedIn = false;
+            $this->logout();
         }
       }
     } else {
@@ -67,7 +68,6 @@ class User {
 
     if($group->count()){
       $permissions = json_decode($group->first()->permissions, true);
-      var_dump($permissions[$key]);
       if($permissions[$key] == true){
         return true;
       }

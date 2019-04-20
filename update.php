@@ -115,7 +115,7 @@
 									<label>Email</label><input type="text" name="email" id="email" value="<?php echo escape($page_user->data()->email); ?>">
 								</tr>
 									<?php
-										if ($user->data()->group == 2) { //TODO: Update with better permissions system
+										if ($user->hasPermission('admin')) { //TODO: Update with better permissions system
 									?>
 										<tr>
 											<label>Group:</label>

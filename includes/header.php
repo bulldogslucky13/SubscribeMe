@@ -30,7 +30,7 @@
                       <li><a href="orders.php">Your Orders</a></li>
                       <li><a href="payment.php">Payment</a></li>
                       <?php
-                      if($user->data()->group == 1){ //TODO: Update with better permissions system
+                      if($user->hasPermission('admin')){ //TODO: Update with better permissions system
                         echo "<li><a href=\"https://admin.subscribme.shop\">Admin Control Panel</a></li>";
                       }
                       ?>
