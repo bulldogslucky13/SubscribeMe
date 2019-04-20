@@ -47,10 +47,12 @@
 	<!-- Header section -->
 	<?php
 		include "includes/header.php";
+
+		$user->hasPermission('admin');
 		if (Input::get('user_id') == null) {
 			$page_user = $user;
 		} else {
-			if (!($user->data()->group == 2)) { //TODO: Update with better permissions system
+			if (!$user->hasPermission('admin')) {
 				Redirect::to('index.php');
 			}
 			$page_user = new User(Input::get('user_id'));
