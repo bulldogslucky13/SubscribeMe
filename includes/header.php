@@ -18,7 +18,16 @@
           <div class="user-panel">
             <div class="up-item">
               <i class="flaticon-profile"></i>
-              <a href="login.php">Sign In</a> or <a href="register.php">Create Account</a>
+              <?php
+              $user = new User();
+              if($user->isLoggedIn()){
+								echo "Welcome, " . escape($user->data()->name) ."!";
+							} else {
+                ?>
+                <a href="login.php">Sign In</a> or <a href="register.php">Create Account</a>
+                <?php
+              }
+              ?>
             </div>
             <div class="up-item">
               <div class="shopping-card">

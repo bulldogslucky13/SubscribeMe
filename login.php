@@ -51,30 +51,58 @@
 	<section class="cart-section spad">
 		<div class="container">
 			<div class="row">
-				<form class="login-form col-lg-10" action="login.php" method="post">
+				<form class="login-form col-lg-10" action="" method="post">
 					<div class="cart-table">
 						<h3>Login</h3>
+						<?php
+							require_once 'core/init.php';
+							$user = new User();
+							$another_user = new User(2);
+							if(Input::exists()){
+								if (Token::check(Input::get('token'))) {
+									echo "<div class=\"messages\">";
+									$validate = new Validate();
+									$validation = $validate->check($_POST, array(
+										'username' => array('name'=>'Username','required'=>true),
+										'password' => array('name'=>'Password','required'=>true)
+									));
+									if($validation->passed()){
+										$user = new User();
+										$login = $user->login(Input::get('username'), Input::get('password'));
+										if ($login) {
+											Redirect::to("index.php");
+										} else {
+											echo "<h5>Login failed!</h5>";
+										}
+									} else {
+										echo "<h5>The following errors have occurred:</h5><ul>";
+										foreach($validation->errors() as $error){
+											echo "<li>" . $error. "</li>";
+										}
+										echo "</ul>";
+									}
+									echo "</div>";
+								}
+							}
+
+						?>
 						<div class="cart-table-warp">
 							<table>
 							<tbody>
 								<tr>
-									<label>Username</label><input type="text" name="username">
+									<label>Username</label><input type="text" name="username" id="username">
 								</tr>
 								<tr>
-									<label>Password</label><input type="password" name="password">
+									<label>Password</label><input type="password" name="password" id="password">
 								</tr>
 							</tbody>
 						</table>
 						</div>
 						<div class="login-button">
-							<input type="submit" name="" value="Login">
+							<input type="submit" value="Login">
+							<input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
 							<h6>Don't have an account? Make one <a href="register.php">here</a>.</h6>
-							<?php
-								$user = DB::getInstance()->update('users', 3, array(
-									'password' => 'New Password',
-									'name' => 'Daley Johnson'
-								));
-							?>
+
 						</div>
 					</div>
 				</form>

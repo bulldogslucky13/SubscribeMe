@@ -54,7 +54,6 @@
 				<form class="register-form col-lg-10" action="" method="post">
 					<div class="cart-table">
 						<h3>Create an Account</h3>
-
 								<?php
 									require_once 'core/init.php';
 									if(Session::exists('register')){
