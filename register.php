@@ -34,10 +34,11 @@
 
 </head>
 <body>
-	<!-- Page Preloder -->
+	<!-- Page Preloder
 	<div id="preloder">
 		<div class="loader"></div>
 	</div>
+-->
 
 	<!-- Header section -->
 	<?php
@@ -56,6 +57,9 @@
 
 								<?php
 									require_once 'core/init.php';
+									if(Session::exists('register')){
+										echo "<div class=\"messages\"><h5>". Session::flash('register') ."</h5></div>";
+									}
 									if(Input::exists()){
 										if(Token::check(Input::get('token'))){
 											echo "<div class=\"messages\"><h5>";
@@ -98,20 +102,34 @@
 											));
 											if($validation->passed()){
 												//TODO: Register the user
-												Session::flash('success', "Your account has been made! Check your email for a confirmation link from us. <a href='login.php' style='color: black;'>Login</a>");
-												if(Session::exists('success')){
-													echo Session::flash('success');
+													$user = new User();
+													$salt = Hash::salt(32);
+													echo "<div class=\"messages\"><h5>You have been registered! Check your email for a confirmation from us. <a href='login.php'>Login</a></h5></div>";
+													try {
+														$user->create(array(
+															'username' => Input::get('username'),
+															'email' => Input::get('email'),
+															'password' => Hash::make(Input::get('password'), $salt),
+															'salt' => $salt,
+															'name' => Input::get('first-name').' '.Input::get('last-name'),
+															'joined' => date('Y-m-d H:i:s'),
+															'group' => 0
+														));
+													} catch (Exception $e) {
+
+															echo "bad";
+														die ($e->getMessage());
+													}
+												} else {
+													echo "<h5>The following errors have occurred:</h5><ul>";
+												 	foreach($validation->errors() as $error){
+														echo "<li>" . $error. "</li>";
+													}
+													echo "</ul>";
 												}
-											} else {
-												echo "<h5>The following errors have occurred:</h5><ul>";
-												foreach($validation->errors() as $error){
-													echo "<li>" . $error. "</li>";
-												}
-												echo "</ul>";
+												echo "</h5></div>";
 											}
-											echo "</h5></div>";
 										}
-									}
 								?>
 						<div class="cart-table-warp" style="padding-top: 24px;">
 							<table>
