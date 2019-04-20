@@ -57,7 +57,9 @@
 						<?php
 							require_once 'core/init.php';
 							$user = new User();
-							$another_user = new User(2);
+							if ($user->isLoggedIn()) {
+								Redirect::to("index.php");
+							}
 							if(Input::exists()){
 								if (Token::check(Input::get('token'))) {
 									echo "<div class=\"messages\">";
@@ -67,7 +69,6 @@
 										'password' => array('name'=>'Password','required'=>true)
 									));
 									if($validation->passed()){
-										$user = new User();
 										$login = $user->login(Input::get('username'), Input::get('password'));
 										if ($login) {
 											Redirect::to("index.php");
