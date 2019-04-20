@@ -115,6 +115,7 @@
 															'joined' => date('Y-m-d H:i:s'),
 															'group' => 0
 														));
+														//Redirect::to('index.php');
 													} catch (Exception $e) {
 
 															echo "bad";
