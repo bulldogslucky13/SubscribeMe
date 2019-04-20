@@ -17,11 +17,27 @@
         <div class="col-xl-4 col-lg-5">
           <div class="user-panel">
             <div class="up-item">
-              <i class="flaticon-profile"></i>
-              <?php
-              $user = new User();
-              if($user->isLoggedIn()){
-								echo "Welcome, " . escape($user->data()->name) ."!";
+              <li>
+                <i class="flaticon-profile"></i>
+                  <?php
+                  $user = new User();
+                  if($user->isLoggedIn()){
+    								echo "<a href class='logged-in'>Welcome, " . escape($user->data()->name) ."!";
+                    ?>
+                  </a>
+                    <ul class="sub-menu">
+                      <li><a href="account.php">Your Account</a></li>
+                      <li><a href="orders.php">Your Orders</a></li>
+                      <li><a href="payment.php">Payment</a></li>
+                      <?php
+                      if($user->data()->group == 1){
+                        echo "<li><a href=\"https://admin.subscribme.shop\">Admin Control Panel</a></li>";
+                      }
+                      ?>
+                      <li><a href="logout.php">Sign Out</a></li>
+                    </ul>
+                  </li>
+                <?php
 							} else {
                 ?>
                 <a href="login.php">Sign In</a> or <a href="register.php">Create Account</a>
