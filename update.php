@@ -34,10 +34,11 @@
 
 </head>
 <body>
-	<!-- Page Preloder -->
+	<!-- Page Preloder
 	<div id="preloder">
 		<div class="loader"></div>
 	</div>
+-->
 
 	<!-- Header section -->
 	<?php
@@ -46,35 +47,50 @@
 	<!-- Header section end -->
 
 
-	<!-- cart section end -->
+	<!-- login section -->
 	<section class="cart-section spad">
 		<div class="container">
 			<div class="row">
-				<form class="login-form col-lg-10" action="login.php" method="post">
+				<form class="login-form col-lg-10" action="" method="post">
 					<div class="cart-table">
 						<h3>Login</h3>
 						<div class="cart-table-warp">
 							<table>
 							<tbody>
 								<tr>
-									<label>Username</label><input type="text" name="username">
+									<label>Username</label><input type="text" name="username" id="username">
 								</tr>
 								<tr>
-									<label>Password</label><input type="text" name="password">
+									<label>Password</label><input type="password" name="password" id="password">
 								</tr>
 							</tbody>
 						</table>
 						</div>
 						<div class="login-button">
-							<input type="submit" name="" value="Login">
+							<input type="submit" value="Login">
+							<input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
 							<h6>Don't have an account? Make one <a href="register.php">here</a>.</h6>
+
 						</div>
 					</div>
 				</form>
 			</div>
+				<div class="row">
+					<form class="register-form col-lg-10" action="register.php" method="post">
+						<div class="cart-table">
+							<h3>Login with Social Media</h3>
+							<div class="cart-table-warp">
+								<div class="social-media-login" style="padding-left: 20%;">
+									<div class="btn"><a href="#" class="login-facebook"><i class="fa fa-facebook"></i> Login via Facebook</a></div>
+									<div class="btn"><a href="#" class="login-google"><i class="fa fa-google"></i> Sign in with Google</a></div>
+									<div class="btn"><a href="#" class="login-twitter"><i class="fa fa-twitter"></i> Login via Twitter</a></div>
+								</div>
+							</div>
+						</div>
+					</div>
 		</div>
 	</section>
-	<!-- cart section end -->
+	<!-- login section end -->
 	<!-- Footer section -->
 	<?php
 		include "includes/footer.php";

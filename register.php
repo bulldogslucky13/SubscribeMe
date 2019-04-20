@@ -1,5 +1,5 @@
 <?php
-	error_reporting(E_ALL);
+	require_once "core/init.php";
 ?>
 <!DOCTYPE html>
 <html lang="zxx">
@@ -39,7 +39,6 @@
 		<div class="loader"></div>
 	</div>
 -->
-
 	<!-- Header section -->
 	<?php
 		include "includes/header.php";
@@ -55,7 +54,6 @@
 					<div class="cart-table">
 						<h3>Create an Account</h3>
 								<?php
-									require_once 'core/init.php';
 									if(Session::exists('register')){
 										echo "<div class=\"messages\"><h5>". Session::flash('register') ."</h5></div>";
 									}
