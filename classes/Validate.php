@@ -31,6 +31,11 @@
                 $this->addError("{$rules['name']} must match {$rule_value}. ");
               }
             break;
+            case 'p_matches':
+              if($value != $source[$rule_value]){
+                $this->addError("Your two desired password values must match.");
+              }
+            break;
             case 'unique':
               $check = $this->_db->get($rule_value, array($item, '=', $value));
               if($check->count()){

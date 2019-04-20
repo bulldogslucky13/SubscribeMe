@@ -126,12 +126,6 @@
 										<?php
 									}
 										?>
-								<tr>
-									<label>New Password</label><input type="password" name="password" id="password">
-								</tr>
-								<tr>
-									<label>Re-type Password</label><input type="password" name="confirm-password" id="confirm-password">
-								</tr>
 							</tbody>
 						</table>
 						</div>

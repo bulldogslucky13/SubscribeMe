@@ -1,5 +1,9 @@
 <?php
 	require_once 'core/init.php';
+	$user = new User();
+	if (!$user->isLoggedIn()) {
+		Redirect::to('index.php');
+	}
 ?>
 <!DOCTYPE html>
 <html lang="zxx">
@@ -34,10 +38,11 @@
 
 </head>
 <body>
-	<!-- Page Preloder -->
+	<!-- Page Preloder
 	<div id="preloder">
 		<div class="loader"></div>
 	</div>
+-->
 
 	<!-- Header section -->
 	<?php
@@ -46,35 +51,97 @@
 	<!-- Header section end -->
 
 
-	<!-- cart section end -->
+	<!-- update section -->
 	<section class="cart-section spad">
 		<div class="container">
 			<div class="row">
-				<form class="login-form col-lg-10" action="login.php" method="post">
+				<form class="login-form col-lg-10" action="" method="post">
 					<div class="cart-table">
-						<h3>Login</h3>
-						<div class="cart-table-warp">
+						<h3>Update Account</h3>
+						<?php
+							if (Input::exists()) {
+								if (Token::check(Input::get('token'))) {
+										echo "<div class=\"messages\">";
+										$validate = new Validate();
+										$validation = $validate->check($_POST, array(
+											'password_current' => array(
+												'name' => 'current password',
+												'required' => true
+											),
+											'password_new' => array(
+												'name' => 'new password',
+												'required' => true,
+												'min' => 6
+
+											),
+											'password_new_again' => array(
+												'name' => 'Re-typed new password',
+												'required' => true,
+												'min' => 6,
+												'p_matches' => 'password_new'
+											)
+										));
+										if ($validation->passed()) {
+											if (Hash::make(Input::get('password_current'), $user->data()->salt) !== $user->data()->password) {
+												echo "<h5>The following errors have occurred:</h5><ul><li>Your current password is wrong.</li></ul>";
+											} else {
+												$salt = Hash::salt(32);
+												$user->update(array(
+													'password' => Hash::make(Input::get('password_new'), $salt),
+													'salt' => $salt
+												));
+												echo "<div class=\"messages\"><h5>Your password has been successfully updated!</h5></div>";
+											}
+										} else {
+											echo "<h5>The following errors have occurred:</h5><ul>";
+											foreach($validation->errors() as $error){
+												echo "<li>" . $error. "</li>";
+											}
+											echo "</ul>";
+										}
+										echo "</div>";
+								}
+							}
+						?>
+						<div class="cart-table-warp" style="padding-top: 24px;">
 							<table>
 							<tbody>
+									<tr>
+										<label>Current Password</label><input type="password" name="password_current" id="password_current">
+									</tr>
 								<tr>
-									<label>Username</label><input type="text" name="username">
+									<label>New Password</label><input type="password" name="password_new" id="password_new">
 								</tr>
 								<tr>
-									<label>Password</label><input type="text" name="password">
+									<label>Re-type Password</label><input type="password" name="password_new_again" id="password_new_again">
 								</tr>
 							</tbody>
 						</table>
 						</div>
 						<div class="login-button">
-							<input type="submit" name="" value="Login">
-							<h6>Don't have an account? Make one <a href="register.php">here</a>.</h6>
+							<input type="submit" value="Update">
+							<input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
+
 						</div>
 					</div>
 				</form>
 			</div>
+				<div class="row">
+					<form class="register-form col-lg-10" action="register.php" method="post">
+						<div class="cart-table">
+							<h3>Link Social Media</h3>
+							<div class="cart-table-warp">
+								<div class="social-media-login" style="padding-left: 20%;">
+									<div class="btn"><a href="#" class="login-facebook"><i class="fa fa-facebook"></i> Login via Facebook</a></div>
+									<div class="btn"><a href="#" class="login-google"><i class="fa fa-google"></i> Sign in with Google</a></div>
+									<div class="btn"><a href="#" class="login-twitter"><i class="fa fa-twitter"></i> Login via Twitter</a></div>
+								</div>
+							</div>
+						</div>
+					</div>
 		</div>
 	</section>
-	<!-- cart section end -->
+	<!-- update section end -->
 	<!-- Footer section -->
 	<?php
 		include "includes/footer.php";

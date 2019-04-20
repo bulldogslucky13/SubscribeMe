@@ -92,7 +92,7 @@
 												'confirm-password' => array (
 													'name' => 'Confirmed Password',
 													'required' => true,
-													'matches' => 'password',
+													'p_matches' => 'password',
 													'min' => 8
 
 												)
