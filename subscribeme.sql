@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Apr 19, 2019 at 02:42 AM
+-- Generation Time: Apr 20, 2019 at 11:16 PM
 -- Server version: 5.6.34-log
 -- PHP Version: 7.2.1
 
@@ -39,9 +39,9 @@ CREATE TABLE `groups` (
 --
 
 INSERT INTO `groups` (`id`, `name`, `permissions`) VALUES
-(1, 'Standard User', ''),
-(2, 'Standard User', ''),
-(3, 'Administrator', '{\"admin\": 1}');
+(0, 'Standard User', ''),
+(1, 'Supplier', '\"product\": [\r\n{ \"create\":true, \"edit\":true  }\r\n]'),
+(2, 'Administrator', '{\"admin\": true}');
 
 -- --------------------------------------------------------
 
@@ -65,9 +65,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `email`, `password`, `salt`, `name`, `joined`, `group`) VALUES
-(1, 'bulldogslucky13', 'cbristol28@yahoo.com', '0928Dirk41', 'salt', 'Cameron bristol', '2019-04-18 00:00:00', 1),
-(2, 'willcbradford', 'willcbradford@gmail.com', 'jdhsj', 'sdfkjhs', 'Will Bradford', '2019-04-18 00:00:00', 1),
-(3, 'dummy', 'johndoe@johnnyboy.com', 'New Password', 'salt', 'Daley Johnson', '2019-04-18 00:00:00', 0);
+(1, 'bulldogslucky13', 'cbristol28@yahoo.com', '1880ff3052a6ff4020216fcaeec4d0dc12112d2a1be00ad6eb00e024b8225e2b', 'ßË¦Iæƒ8ië\'“©6Èr(xP8Xø³²kÓ,\rôXŠ)', 'Cameron Bristol', '2019-04-20 16:54:18', 2),
+(2, 'willcbradford', 'willcbradford@gmail.com', '5aa06196da385e9b940e63b5c70fae6d8166c27929782f4858f5769648d226b0', '¢7sÙV¾Û¯t%{hË%k¬àç´á\n:', 'Will Bradford', '2019-04-20 21:32:00', 2);
 
 -- --------------------------------------------------------
 
@@ -111,12 +110,12 @@ ALTER TABLE `user_sessions`
 -- AUTO_INCREMENT for table `groups`
 --
 ALTER TABLE `groups`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `user_sessions`
 --
