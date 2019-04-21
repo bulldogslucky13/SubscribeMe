@@ -48,7 +48,20 @@
             <div class="up-item">
               <div class="shopping-card">
                 <i class="flaticon-bag"></i>
-                <span>0</span>
+                <span>
+                  <?php
+                    $db = DB::getInstance();
+                    $cart_check = $db->get('cart', array('shopper_id', '=', $user->data()->id));
+                    if($cart_check->count()){
+                      $data = $cart_check->first();
+                      $item_array = $data->items;
+                      $items = explode(",", $item_array);
+                      echo count($items);
+                    } else {
+                      echo 0;
+                    }
+                  ?>
+                </span>
               </div>
               <a href="cart.php">Shopping Cart</a>
             </div>

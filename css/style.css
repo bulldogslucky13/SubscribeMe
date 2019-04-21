@@ -1547,6 +1547,17 @@ ol {
 	padding-bottom: 65px;
 }
 
+.product-section .messages {
+	width: 60%;
+	margin-left: 20%;
+	margin-bottom: 24px;
+	margin-top: none;
+	background-color: #2fce98;
+	padding: 16px;
+	border-radius: 12px;
+	border-color: black;
+}
+
 .back-link {
 	padding-bottom: 50px;
 }

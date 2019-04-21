@@ -49,7 +49,7 @@
 	<!-- Page info -->
 	<div class="page-top-info">
 		<div class="container">
-			<h4>Category PAge</h4>
+			<h4>Category Page</h4>
 			<div class="site-pagination">
 				<a href="">Home</a> /
 				<a href="">Shop</a>
@@ -65,6 +65,72 @@
 			<div class="back-link">
 				<a href="./category.html"> &lt;&lt; Back to Category</a>
 			</div>
+			<?php
+			if (!Input::get('id')) {
+				Redirect::to("index.php");
+			}
+				if(Input::exists()){
+					if (Token::check(Input::get('token'))) {
+						$user = new User();
+						echo "<div class=\"messages\">";
+						$validate = new Validate();
+						$validation = $validate->check($_POST, array(
+							'sc' => array(
+								'name' => 'size',
+								'required'=> true
+							),
+							'quantity' => array(
+								'name' => 'quantity',
+								'required'=> true,
+								'min' => 1
+							)
+						));
+
+						if ($validation->passed()){
+							$cart = new Cart();
+							$db = DB::getInstance();
+							for ($i=Input::get("quantity"); $i > 0; $i--) {
+								$cart_check = $db->get('cart', array('shopper_id', '=', $user->data()->id));
+								if ($cart_check->count()) {
+								$data = $cart_check->first();
+								$item_array = $data->items;
+								$items = explode(",", $item_array);
+								array_push($items, Input::get('id'));
+								$new_items = implode(",", $items);
+
+								$option_array = $data->options;
+								$options = explode(",", $option_array);
+								array_push($options, "size=" . Input::get('sc'));
+								$new_options = implode(",", $options);
+
+								$db->update('cart', $data->id,array(
+									'items' => $new_items,
+									'options' => $new_options
+								));
+							} else {
+								try {
+									$cart->addItem(array(
+										'shopper_id' => $user->data()->id,
+										'items' => Input::get("id"),
+										'options' => "size=".Input::get('sc')
+									));
+								} catch (Exception $e){
+									die ($e->getMessage());
+								}
+							}
+						}
+						echo "Item(s) added to your cart!";
+						} else {
+							echo "<h5>The following errors have occurred:</h5><ul>";
+							foreach($validation->errors() as $error){
+								echo "<li>" . $error. "</li>";
+							}
+							echo "</ul>";
+						}
+						echo "</div>";
+					}
+				}
+			?>
 			<div class="row">
 				<div class="col-lg-6">
 					<div class="product-pic-zoom">
@@ -79,52 +145,53 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-lg-6 product-details">
-					<h2 class="p-title">White peplum top</h2>
-					<h3 class="p-price">$39.90</h3>
-					<h4 class="p-stock">Available: <span>In Stock</span></h4>
-					<div class="p-rating">
-						<i class="fa fa-star-o"></i>
-						<i class="fa fa-star-o"></i>
-						<i class="fa fa-star-o"></i>
-						<i class="fa fa-star-o"></i>
-						<i class="fa fa-star-o fa-fade"></i>
-					</div>
-					<div class="p-review">
-						<a href="">3 reviews</a>|<a href="">Add your review</a>
-					</div>
-					<div class="fw-size-choose">
-						<p>Size</p>
-						<div class="sc-item">
-							<input type="radio" name="sc" id="xs-size">
-							<label for="xs-size">32</label>
+					<form class="col-lg-6 product-details" action="" method="post">
+						<h2 class="p-title">White peplum top</h2>
+						<h3 class="p-price">$39.90</h3>
+						<h4 class="p-stock">Available: <span>In Stock</span></h4>
+						<div class="p-rating">
+							<i class="fa fa-star-o"></i>
+							<i class="fa fa-star-o"></i>
+							<i class="fa fa-star-o"></i>
+							<i class="fa fa-star-o"></i>
+							<i class="fa fa-star-o fa-fade"></i>
 						</div>
-						<div class="sc-item">
-							<input type="radio" name="sc" id="s-size">
-							<label for="s-size">34</label>
+						<div class="p-review">
+							<a href="">3 reviews</a>|<a href="">Add your review</a>
 						</div>
-						<div class="sc-item">
-							<input type="radio" name="sc" id="m-size" checked="">
-							<label for="m-size">36</label>
+						<div class="fw-size-choose">
+							<p>Size</p>
+							<div class="sc-item">
+								<input type="radio" name="sc" id="xs-size" value="32">
+								<label for="xs-size">32</label>
+							</div>
+							<div class="sc-item">
+								<input type="radio" name="sc" id="s-size" value="34">
+								<label for="s-size">34</label>
+							</div>
+							<div class="sc-item">
+								<input type="radio" name="sc" id="m-size" value="36" checked="">
+								<label for="m-size">36</label>
+							</div>
+							<div class="sc-item">
+								<input type="radio" name="sc" id="l-size" value="38">
+								<label for="l-size">38</label>
+							</div>
+							<div class="sc-item disable">
+								<input type="radio" name="sc" id="xl-size" value="40" disabled>
+								<label for="xl-size">40</label>
+							</div>
+							<div class="sc-item">
+								<input type="radio" name="sc" id="xxl-size" value="42">
+								<label for="xxl-size">42</label>
+							</div>
 						</div>
-						<div class="sc-item">
-							<input type="radio" name="sc" id="l-size">
-							<label for="l-size">38</label>
-						</div>
-						<div class="sc-item disable">
-							<input type="radio" name="sc" id="xl-size" disabled>
-							<label for="xl-size">40</label>
-						</div>
-						<div class="sc-item">
-							<input type="radio" name="sc" id="xxl-size">
-							<label for="xxl-size">42</label>
-						</div>
-					</div>
-					<div class="quantity">
-						<p>Quantity</p>
-                        <div class="pro-qty"><input type="text" value="1"></div>
-                    </div>
-					<a href="#" class="site-btn">SHOP NOW</a>
+						<div class="quantity">
+							<p>Quantity</p>
+	              <div class="pro-qty"><input type="text" value="1" name="quantity" id="quantity"></div>
+	          </div>
+						<input type="submit" class="site-btn" value="ADD TO CART">
+						<input type="hidden" name="token" id="token" value="<?php echo Token::generate(); ?>">
 					<div id="accordion" class="accordion-area">
 						<div class="panel">
 							<div class="panel-header" id="headingOne">
@@ -170,7 +237,7 @@
 						<a href=""><i class="fa fa-twitter"></i></a>
 						<a href=""><i class="fa fa-youtube"></i></a>
 					</div>
-				</div>
+				</form>
 			</div>
 		</div>
 	</section>
