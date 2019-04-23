@@ -65,7 +65,7 @@
           </div>
           <div class="con-info">
             <span>E.</span>
-            <p>willcbradford@gmail.com</p>
+            <p>info@subscribeme.store</p>
           </div>
         </div>
       </div>
