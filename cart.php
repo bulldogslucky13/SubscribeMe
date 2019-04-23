@@ -124,7 +124,7 @@
 						</table>
 						</div>
 						<div class="total-cost">
-							<h6>Total <span>$99.90</span></h6>
+							<h6>Total <span>$0.00</span></h6>
 						</div>
 					</div>
 				</div>
