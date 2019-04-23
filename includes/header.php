@@ -50,16 +50,9 @@
                 <i class="flaticon-bag"></i>
                 <span>
                   <?php
-                    $db = DB::getInstance();
-                    $cart_check = $db->get('cart', array('shopper_id', '=', $user->data()->id));
-                    if($cart_check->count()){
-                      $data = $cart_check->first();
-                      $item_array = $data->items;
-                      $items = explode(",", $item_array);
-                      echo count($items);
-                    } else {
-                      echo 0;
-                    }
+                    $cart = new Cart();
+                    $cart_check = $cart->returnCartCount($user->data()->id);
+                    echo $cart_check;
                   ?>
                 </span>
               </div>
