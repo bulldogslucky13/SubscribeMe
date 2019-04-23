@@ -51,7 +51,7 @@
                 <span>
                   <?php
                     $cart = new Cart();
-                    $cart_check = $cart->returnCartCount($user->data()->id, 'items');
+                    $cart_check = $cart->count($user->data()->id);
                     echo $cart_check;
                   ?>
                 </span>
