@@ -12,13 +12,26 @@ class Cart{
     }
   }
 
-  public function returnCartCount($id){
+  public function returnCart($id, $field){
+      $user = new User();
+      $cart_check = $this->_db->get('cart', array('shopper_id', '=', $id));
+      $data = $cart_check->first();
+      $array = $data->$field;
+      $items = explode(",", $array);
+      return $items;
+  }
+
+  public function returnCartByID($id){
+    $user = new User();
+    $cart_check = $this->_db->get('cart', array('shopper_id', '=', $id));
+    $data = $cart_check->first();
+    return $data;
+  }
+
+  public function returnCartCount($id, $field){
       $user = new User();
       if($user->isLoggedIn()){
-        $cart_check = $this->_db->get('cart', array('shopper_id', '=', $id));
-        $data = $cart_check->first();
-        $item_array = $data->items;
-        $items = explode(",", $item_array);
+        $items = self::returnCart($id, $field);
         return count($items);
       } else {
         return 0;

@@ -34,10 +34,10 @@
 
 </head>
 <body>
-	<!-- Page Preloder -->
+	<!-- Page Preloder
 	<div id="preloder">
 		<div class="loader"></div>
-	</div>
+	</div> -->
 
 	<!-- Header section -->
 	<?php
@@ -90,35 +90,32 @@
 							$cart = new Cart();
 							$db = DB::getInstance();
 							for ($i=Input::get("quantity"); $i > 0; $i--) {
-								$cart_check = $db->get('cart', array('shopper_id', '=', $user->data()->id));
-								if ($cart_check->count()) {
-								$data = $cart_check->first();
-								$item_array = $data->items;
-								$items = explode(",", $item_array);
-								array_push($items, Input::get('id'));
-								$new_items = implode(",", $items);
+								$cart_check = $cart->returnCartCount($user->data()->id, 'items');
+								if ($cart_check>0) {
+									$items = $cart->returnCart($user->data()->id, 'items');
+									array_push($items, Input::get('id'));
+									$new_items = implode(",", $items);
 
-								$option_array = $data->options;
-								$options = explode(",", $option_array);
-								array_push($options, "size=" . Input::get('sc'));
-								$new_options = implode(",", $options);
+									$options = $cart->returnCart($user->data()->id, 'options');
+									array_push($options, "size=" . Input::get('sc'));
+									$new_options = implode(",", $options);
 
-								$db->update('cart', $data->id,array(
-									'items' => $new_items,
-									'options' => $new_options
-								));
-							} else {
-								try {
-									$cart->addItem(array(
-										'shopper_id' => $user->data()->id,
-										'items' => Input::get("id"),
-										'options' => "size=".Input::get('sc')
+									$db->update('cart', $user->data()->id, array(
+										'items' => $new_items,
+										'options' => $new_options
 									));
-								} catch (Exception $e){
-									die ($e->getMessage());
+								} else {
+									try {
+										$cart->addItem(array(
+											'shopper_id' => $user->data()->id,
+											'items' => Input::get("id"),
+											'options' => "size=".Input::get('sc')
+										));
+									} catch (Exception $e){
+										die ($e->getMessage());
+									}
 								}
 							}
-						}
 						echo "Item(s) added to your cart!";
 						} else {
 							echo "<h5>The following errors have occurred:</h5><ul>";
