@@ -73,9 +73,7 @@
 									$cart = new Cart();
 									if($user->isLoggedIn()){
 										if($cart->count($user->data()->id)>0){
-											$items_array = $cart->returnCart($user->data()->id, 'items');
-											foreach($items_array as $item_id){
-												?>
+											?>
 												<thead>
 													<tr>
 														<th class="product-th">Product</th>
@@ -85,6 +83,10 @@
 													</tr>
 												</thead>
 												<tbody>
+											<?php
+											$items_array = $cart->returnCart($user->data()->id, 'items');
+											foreach($items_array as $item_id){
+												?>
 												<tr>
 													<td class="product-col">
 														<img src="img/cart/1.jpg" alt="">
