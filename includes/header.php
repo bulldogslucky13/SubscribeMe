@@ -68,6 +68,8 @@
       <!-- menu -->
       <ul class="main-menu">
         <li><a href="index.php">Home</a></li>
+        <li><a href="category.php?cat=11">Men</a></li>
+        <li><a href="category.php?cat=12">Women</a></li>
         <li><a href="category.php?cat=1">Outdoor</a></li>
         <li><a href="category.php?cat=2">Self-Care<span class="new">New</span></a></li>
         <li><a href="category.php?cat=3">Trending</a></li>
