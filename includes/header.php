@@ -72,7 +72,7 @@
         <li><a href="category.php?cat=12">Women</a></li>
         <li><a href="category.php?cat=1">Outdoor</a></li>
         <li><a href="category.php?cat=2">Self-Care<span class="new">New</span></a></li>
-        <li><a href="category.php?cat=3">Trending</a></li>
+        <!--<li><a href="category.php?cat=3">Trending</a></li>-->
         <li><a href="category.php?cat=4">Gifts</a>
           <ul class="sub-menu">
             <li><a href="category.php?cat=5">Holday</a></li>
@@ -83,7 +83,7 @@
           </ul>
         </li>
         <li><a href="category.php?cat=6">Kids</a></li>
-        <li><a href="category.php?cat=7">Modern</a></li>
+        <!--<li><a href="category.php?cat=7">Modern</a></li>-->
         <li><a href="category.php?cat=8">Consumable</a></li>
         <li><a href="category.php?cat=9">Fitness</a></li>
         <li><a href="category.php?cat=10">Miscellaneous</a></li>

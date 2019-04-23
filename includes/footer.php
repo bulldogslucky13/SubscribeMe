@@ -59,10 +59,10 @@
             <span>C.</span>
             <p>SubscribeMe Ltd</p>
           </div>
-          <div class="con-info">
+          <!--<div class="con-info">
             <span>T.</span>
             <p>+972 983 9884</p>
-          </div>
+          </div>-->
           <div class="con-info">
             <span>E.</span>
             <p>info@subscribeme.store</p>
