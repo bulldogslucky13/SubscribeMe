@@ -34,10 +34,10 @@
 
 </head>
 <body>
-	<!-- Page Preloder
+	<!-- Page Preloder -->
 	<div id="preloder">
 		<div class="loader"></div>
-	</div> -->
+	</div>
 
 	<!-- Header section -->
 	<?php
@@ -68,15 +68,6 @@
 						<h3>Your Cart</h3>
 						<div class="cart-table-warp">
 							<table>
-							<thead>
-								<tr>
-									<th class="product-th">Product</th>
-									<th class="quy-th">Quantity</th>
-									<th class="size-th">SizeSize</th>
-									<th class="total-th">Price</th>
-								</tr>
-							</thead>
-							<tbody>
 								<?php
 									$user = new User();
 									$cart = new Cart();
@@ -85,6 +76,15 @@
 											$items_array = $cart->returnCart($user->data()->id, 'items');
 											foreach($items_array as $item_id){
 												?>
+												<thead>
+													<tr>
+														<th class="product-th">Product</th>
+														<th class="quy-th">Quantity</th>
+														<th class="size-th">SizeSize</th>
+														<th class="total-th">Price</th>
+													</tr>
+												</thead>
+												<tbody>
 												<tr>
 													<td class="product-col">
 														<img src="img/cart/1.jpg" alt="">
@@ -107,9 +107,11 @@
 											}
 										} else {
 											?>
-											<div class="messages">
-												<h5>Your cart is empty! <a href=index.php>Home</a></h5>
-											</div>
+											<tr>
+												<div class="messages">
+													<h5>Your cart is empty! <a href=index.php>Home</a></h5>
+												</div>
+											</tr>
 											<?php
 										}
 									} else {

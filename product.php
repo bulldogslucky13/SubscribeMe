@@ -34,10 +34,10 @@
 
 </head>
 <body>
-	<!-- Page Preloder
+	<!-- Page Preloder -->
 	<div id="preloder">
 		<div class="loader"></div>
-	</div> -->
+	</div>
 
 	<!-- Header section -->
 	<?php
@@ -93,17 +93,16 @@
 								$cart_check = $cart->count($user->data()->id);
 								if ($cart_check>0) {
 									$items = $cart->returnCart($user->data()->id, 'items');
-									var_dump($items);
 									array_push($items, Input::get('id'));
 									$new_items = implode(",", $items);
-
-									var_dump($new_items);
 
 									$options = $cart->returnCart($user->data()->id, 'options');
 									array_push($options, "size=" . Input::get('sc'));
 									$new_options = implode(",", $options);
 
-									$db->update('cart', $user->data()->id, array(
+									$id = $cart->returnCartByID($user->data()->id)->id;
+
+									$db->update('cart', $id, array(
 										'items' => $new_items,
 										'options' => $new_options
 									));

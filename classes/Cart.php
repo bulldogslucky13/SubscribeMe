@@ -41,8 +41,12 @@ class Cart{
   public function count($id){
       $user = new User();
       if($user->isLoggedIn()){
-        $cart_check = self::returnCartByID($user->data()->id);
-        return count($cart_check);
+        if(self::returnCartByID($user->data()->id)){
+          $cart_check = self::returnCart($user->data()->id, 'items');
+          return count($cart_check);
+        } else {
+          return 0;
+        }
       } else {
         return 0;
       }
