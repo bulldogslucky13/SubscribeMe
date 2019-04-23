@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Apr 21, 2019 at 04:40 AM
+-- Generation Time: Apr 23, 2019 at 05:56 AM
 -- Server version: 5.6.34-log
 -- PHP Version: 7.2.1
 
@@ -52,10 +52,9 @@ CREATE TABLE `groups` (
 -- Dumping data for table `groups`
 --
 
-INSERT INTO `groups` (`id`, `name`, `permissions`) VALUES
-(0, 'Standard User', ''),
-(1, 'Supplier', '\"product\": [\r\n{ \"create\":true, \"edit\":true  }\r\n]'),
-(2, 'Administrator', '{\"admin\": true}');
+INSERT INTO `groups` VALUES(0, 'Standard User', '');
+INSERT INTO `groups` VALUES(1, 'Supplier', '\"product\": [\r\n{ \"create\":true, \"edit\":true  }\r\n]');
+INSERT INTO `groups` VALUES(2, 'Administrator', '{\"admin\": true}');
 
 -- --------------------------------------------------------
 
@@ -94,9 +93,8 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `email`, `password`, `salt`, `name`, `joined`, `group`) VALUES
-(1, 'bulldogslucky13', 'cbristol28@yahoo.com', '1880ff3052a6ff4020216fcaeec4d0dc12112d2a1be00ad6eb00e024b8225e2b', 'ßË¦Iæƒ8ië\'“©6Èr(xP8Xø³²kÓ,\rôXŠ)', 'Cameron Bristol', '2019-04-20 16:54:18', 2),
-(2, 'willcbradford', 'willcbradford@gmail.com', '5aa06196da385e9b940e63b5c70fae6d8166c27929782f4858f5769648d226b0', '¢7sÙV¾Û¯t%{hË%k¬àç´á\n:', 'Will Bradford', '2019-04-20 21:32:00', 2);
+INSERT INTO `users` VALUES(1, 'bulldogslucky13', 'cbristol28@yahoo.com', '1880ff3052a6ff4020216fcaeec4d0dc12112d2a1be00ad6eb00e024b8225e2b', 'ßË¦Iæƒ8ië\'“©6Èr(xP8Xø³²kÓ,\rôXŠ)', 'Cameron Bristol', '2019-04-20 16:54:18', 2);
+INSERT INTO `users` VALUES(2, 'willcbradford', 'willcbradford@gmail.com', '5aa06196da385e9b940e63b5c70fae6d8166c27929782f4858f5769648d226b0', '¢7sÙV¾Û¯t%{hË%k¬àç´á\n:', 'Will Bradford', '2019-04-20 21:32:00', 2);
 
 -- --------------------------------------------------------
 
@@ -152,7 +150,7 @@ ALTER TABLE `user_sessions`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `groups`
 --
@@ -162,7 +160,7 @@ ALTER TABLE `groups`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `users`
 --
