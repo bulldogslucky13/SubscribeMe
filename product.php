@@ -90,11 +90,14 @@
 							$cart = new Cart();
 							$db = DB::getInstance();
 							for ($i=Input::get("quantity"); $i > 0; $i--) {
-								$cart_check = $cart->returnCartCount($user->data()->id, 'items');
+								$cart_check = $cart->count($user->data()->id);
 								if ($cart_check>0) {
 									$items = $cart->returnCart($user->data()->id, 'items');
+									var_dump($items);
 									array_push($items, Input::get('id'));
 									$new_items = implode(",", $items);
+
+									var_dump($new_items);
 
 									$options = $cart->returnCart($user->data()->id, 'options');
 									array_push($options, "size=" . Input::get('sc'));

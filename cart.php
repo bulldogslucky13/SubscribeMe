@@ -34,10 +34,10 @@
 
 </head>
 <body>
-	<!-- Page Preloder -->
+	<!-- Page Preloder
 	<div id="preloder">
 		<div class="loader"></div>
-	</div>
+	</div> -->
 
 	<!-- Header section -->
 	<?php
@@ -59,7 +59,7 @@
 	<!-- Page info end -->
 
 
-	<!-- cart section end -->
+	<!-- cart section begin -->
 	<section class="cart-section spad">
 		<div class="container">
 			<div class="row">
@@ -77,60 +77,45 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td class="product-col">
-										<img src="img/cart/1.jpg" alt="">
-										<div class="pc-title">
-											<h4>Animal Print Dress</h4>
-											<p>$45.90</p>
-										</div>
-									</td>
-									<td class="quy-col">
-										<div class="quantity">
-					                        <div class="pro-qty">
-												<input type="text" value="1">
+								<?php
+									$user = new User();
+									$cart = new Cart();
+									if($user->isLoggedIn()){
+										if($cart->count($user->data()->id)>0){
+											$items_array = $cart->returnCart($user->data()->id, 'items');
+											foreach($items_array as $item_id){
+												?>
+												<tr>
+													<td class="product-col">
+														<img src="img/cart/1.jpg" alt="">
+														<div class="pc-title">
+															<h4>Animal Print Dress</h4>
+															<p>$45.90</p>
+														</div>
+													</td>
+													<td class="quy-col">
+														<div class="quantity">
+															<div class="pro-qty">
+																<input type="text" value="1">
+															</div>
+														</div>
+													</td>
+													<td class="size-col"><h4>Size M</h4></td>
+													<td class="total-col"><h4>$45.90</h4></td>
+												</tr>
+												<?php
+											}
+										} else {
+											?>
+											<div class="messages">
+												<h5>Your cart is empty! <a href=index.php>Home</a></h5>
 											</div>
-                    					</div>
-									</td>
-									<td class="size-col"><h4>Size M</h4></td>
-									<td class="total-col"><h4>$45.90</h4></td>
-								</tr>
-								<tr>
-									<td class="product-col">
-										<img src="img/cart/2.jpg" alt="">
-										<div class="pc-title">
-											<h4>Ruffle Pink Top</h4>
-											<p>$45.90</p>
-										</div>
-									</td>
-									<td class="quy-col">
-										<div class="quantity">
-					                        <div class="pro-qty">
-												<input type="text" value="1">
-											</div>
-                    					</div>
-									</td>
-									<td class="size-col"><h4>Size M</h4></td>
-									<td class="total-col"><h4>$45.90</h4></td>
-								</tr>
-								<tr>
-									<td class="product-col">
-										<img src="img/cart/3.jpg" alt="">
-										<div class="pc-title">
-											<h4>Skinny Jeans</h4>
-											<p>$45.90</p>
-										</div>
-									</td>
-									<td class="quy-col">
-										<div class="quantity">
-					                        <div class="pro-qty">
-												<input type="text" value="1">
-											</div>
-                    					</div>
-									</td>
-									<td class="size-col"><h4>Size M</h4></td>
-									<td class="total-col"><h4>$45.90</h4></td>
-								</tr>
+											<?php
+										}
+									} else {
+										Redirect::to('index.php');
+									}
+									?>
 							</tbody>
 						</table>
 						</div>

@@ -37,5 +37,15 @@ class Cart{
         return 0;
       }
   }
+
+  public function count($id){
+      $user = new User();
+      if($user->isLoggedIn()){
+        $cart_check = self::returnCartByID($user->data()->id);
+        return count($cart_check);
+      } else {
+        return 0;
+      }
+  }
 }
 ?>
