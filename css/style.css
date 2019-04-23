@@ -14,7 +14,7 @@ html,
 body {
 	height: 100%;
 	font-family: 'Josefin Sans', sans-serif;
-	-webkit-font-smoothing: antialiased;
+	-webkit-font-smoothing: a ntialiased;
 	font-smoothing: antialiased;
 }
 
@@ -332,6 +332,8 @@ ol {
 /*------------------
   Header section
 ---------------------*/
+
+/*TODO: Edit resizing on screen size*/
 
 .header-top {
 	padding: 18px 0 14px;
