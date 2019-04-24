@@ -84,7 +84,7 @@
 												</thead>
 												<tbody>
 											<?php
-											$items_array = $cart->returnCart($user->data()->id, 'items');
+											$items_array = $cart->returnItems($user->data()->id, 'items');
 											foreach($items_array as $item_id){
 												?>
 												<tr>

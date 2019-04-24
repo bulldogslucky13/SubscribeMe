@@ -92,11 +92,11 @@
 							for ($i=Input::get("quantity"); $i > 0; $i--) {
 								$cart_check = $cart->count($user->data()->id);
 								if ($cart_check>0) {
-									$items = $cart->returnCart($user->data()->id, 'items');
+									$items = $cart->returnItems($user->data()->id, 'items');
 									array_push($items, Input::get('id'));
 									$new_items = implode(",", $items);
 
-									$options = $cart->returnCart($user->data()->id, 'options');
+									$options = $cart->returnItems($user->data()->id, 'options');
 									array_push($options, "size=" . Input::get('sc'));
 									$new_options = implode(",", $options);
 

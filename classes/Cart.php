@@ -12,7 +12,7 @@ class Cart{
     }
   }
 
-  public function returnCart($id, $field){
+  public function returnItems($id, $field){
       $user = new User();
       $cart_check = $this->_db->get('cart', array('shopper_id', '=', $id));
       $data = $cart_check->first();
@@ -28,21 +28,11 @@ class Cart{
     return $data;
   }
 
-  public function returnCartCount($id, $field){
-      $user = new User();
-      if($user->isLoggedIn()){
-        $items = self::returnCart($id, $field);
-        return count($items);
-      } else {
-        return 0;
-      }
-  }
-
   public function count($id){
       $user = new User();
       if($user->isLoggedIn()){
         if(self::returnCartByID($user->data()->id)){
-          $cart_check = self::returnCart($user->data()->id, 'items');
+          $cart_check = self::returnItems($user->data()->id, 'items');
           return count($cart_check);
         } else {
           return 0;
