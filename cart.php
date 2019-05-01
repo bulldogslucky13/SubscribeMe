@@ -72,7 +72,8 @@
 									$user = new User();
 									$cart = new Cart();
 									if($user->isLoggedIn()){
-										if($cart->count($user->data()->id)>0){
+										if($cart->isItemsInCart($user->data()->id)){
+											$total = 0;
 											?>
 												<thead>
 													<tr>
@@ -124,7 +125,13 @@
 						</table>
 						</div>
 						<div class="total-cost">
-							<h6>Total <span>$0.00</span></h6>
+							<?php
+							if($user->isLoggedIn()){
+								if($cart->isItemsInCart($user->data()->id)){
+									echo "<h6>Total <span>$0.00</span></h6>";
+								}
+							}
+							?>
 						</div>
 					</div>
 				</div>
@@ -133,7 +140,7 @@
 						<input type="text" placeholder="Enter promo code">
 						<button>Submit</button>
 					</form>
-					<a href="" class="site-btn">Proceed to checkout</a>
+					<a href="checkout.php" class="site-btn">Proceed to checkout</a>
 					<a href="" class="site-btn sb-dark">Continue shopping</a>
 				</div>
 			</div>

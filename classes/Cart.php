@@ -21,6 +21,13 @@ class Cart{
       return $items;
   }
 
+  public function isItemsInCart($uid){
+    if(self::count($uid)>0){
+      return true;
+    }
+    return false;
+  }
+
   public function returnCartByID($id){
     $user = new User();
     $cart_check = $this->_db->get('cart', array('shopper_id', '=', $id));
